@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="protocalfactory">
+      <UniqueIdentifier>{0c643986-bea3-4a01-8f7b-59f6f109f34d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="protocalfactory\serialcom">
+      <UniqueIdentifier>{1730bcfb-a5b9-43d7-97fa-67d88625462e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="protocalfactory\usb">
+      <UniqueIdentifier>{41c44d70-f262-4d6d-be1a-c8813ac20beb}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\iprotocal.h">
+      <Filter>protocalfactory</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\protocalfactory.h">
+      <Filter>protocalfactory</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\serialprotocal.h">
+      <Filter>protocalfactory\serialcom</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Protocal.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="protocalfactory\protocalfactory.cpp">
+      <Filter>protocalfactory</Filter>
+    </ClCompile>
+    <ClCompile Include="protocalfactory\serialcom\serialprotocal.cpp">
+      <Filter>protocalfactory\serialcom</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

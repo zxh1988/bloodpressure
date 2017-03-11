@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="devfactory">
+      <UniqueIdentifier>{0524b8ab-aa7a-4ad9-b19a-4b618d6fad76}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="devfactory\serialcom">
+      <UniqueIdentifier>{c9b46aa1-7cce-4e1e-b4f3-88a545817fd1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="devfactory\usb">
+      <UniqueIdentifier>{c777e7d3-9cfb-4740-a7f7-69379625c63d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="dataformatfactory">
+      <UniqueIdentifier>{d94cf401-184e-49d1-9b4b-d0baf967a892}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\devfactory.h">
+      <Filter>devfactory</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\idevinterfacetype.h">
+      <Filter>devfactory</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\usbdev.h">
+      <Filter>devfactory\usb</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\serialdev.h">
+      <Filter>devfactory\serialcom</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\SerialCom.h">
+      <Filter>devfactory\serialcom</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\devtemplete.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="devfactory\devfactory.cpp">
+      <Filter>devfactory</Filter>
+    </ClCompile>
+    <ClCompile Include="devfactory\usb\usbdev.cpp">
+      <Filter>devfactory\usb</Filter>
+    </ClCompile>
+    <ClCompile Include="devfactory\serialcom\serialdev.cpp">
+      <Filter>devfactory\serialcom</Filter>
+    </ClCompile>
+    <ClCompile Include="src\serialcom\SerialCom.cpp">
+      <Filter>devfactory\serialcom</Filter>
+    </ClCompile>
+    <ClCompile Include="DeviceBloodPressure.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\devtemplete.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

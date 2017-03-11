@@ -1,0 +1,9 @@
+﻿Build started 3/11/2017 19:32:59.
+     1>Project "E:\zhangxianhui\VsProj\DeviceBloodPressure\libbpdev\libbpdev.vcxproj" on node 2 (clean target(s)).
+     1>_PrepareForClean:
+         Deleting file "Release\libbpdev.lastbuildstate".
+     1>Done Building Project "E:\zhangxianhui\VsProj\DeviceBloodPressure\libbpdev\libbpdev.vcxproj" (clean target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:00.08
