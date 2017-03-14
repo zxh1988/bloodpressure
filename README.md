@@ -1,4 +1,7 @@
-1、基于VS2010工程，创建于2017-3-11
-解析串口动态血压协议数据，代码里使用了工厂模式，扩展性。
+		Access Ambulatory Blood Pressure Device
+	
+	This Project is based in vs2010 project in C++,The Purpose is 
+parsed protocal data by reading ambulatory blood pressure device, 
+Currently,it has been achieved reading data from serial device. 
 
 
