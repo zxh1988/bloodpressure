@@ -47,7 +47,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	char *pResultData = NULL;
 	int nResultSize = 0;
 	//设置测量时间模式
-	//nRet = BpWriteDevice(pWriteData, strlen(pWriteData), &pResultData, nResultSize);
+	nRet = BpWriteDevice(pWriteData, strlen(pWriteData), &pResultData, nResultSize);
 
 	//读数据
 	nRet = BpWriteDevice(pRrcd, strlen(pRrcd), &pResultData, nResultSize);

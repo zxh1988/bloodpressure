@@ -21,27 +21,21 @@ public:
 
 public:
 	//////////////////////////////////////////////////////////////////////////
-	/// @function [OpenDevice]
-	/// @brief [打开USB HID类型设备]
+	/// @function [InitDevice]
+	/// @brief [初始化设备]
 	///
-	/// @param [in] szDevContent	[设备内容，
-	///	USB设备JSON格式： {wVID:"xxx",wPID:"xxx"}；
-	/// 串口设备JSON格式：{Com："名称"，nBaud："波特率"，parity："奇偶检验位"，DataBit："数据位"，StopBits:"停止位"}  
+	/// @param [in] szDevContent	[设备内容:
+	///	HID USB设备JSON格式： {"TAG":"Usb","Param":{wVID:"xxx",wPID:"xxx"}}；
+	/// 串口设备JSON格式：{"TAG":"Serial","Param":{Com："名称"，nBaud："波特率"，parity："奇偶检验位"，DataBit："数据位"，StopBits:"停止位"}}  
 	///                             ]
-	/// @param [in] nDevType		[设备类型，0表示串口设备，1表示USB设备(未用)]
 	/// @return						[int 类型]
 	//////////////////////////////////////////////////////////////////////////
 	virtual int InitDevice(IN const char *szDevContent) = 0;
 
 	//////////////////////////////////////////////////////////////////////////
 	/// @function [OpenDevice]
-	/// @brief [打开USB HID类型设备]
+	/// @brief [打开设备]
 	///
-	/// @param [in] szDevContent	[设备内容，
-	///	USB设备JSON格式： {wVID:"xxx",wPID:"xxx"}；
-	/// 串口设备JSON格式：{Com："名称"，nBaud："波特率"，parity："奇偶检验位"，DataBit："数据位"，StopBits:"停止位"}  
-	///                             ]
-	/// @param [in] nDevType		[设备类型，0表示串口设备，1表示USB设备]
 	/// @return						[int 类型]
 	//////////////////////////////////////////////////////////////////////////
 	virtual int OpenDevice() = 0;

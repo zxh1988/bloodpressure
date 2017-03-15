@@ -30,7 +30,7 @@
     <ClInclude Include="inc\hdserver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\devserver.h">
+    <ClInclude Include="inc\devserver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

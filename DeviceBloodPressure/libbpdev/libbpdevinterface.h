@@ -7,6 +7,7 @@
 *************************************************/
 #ifndef LIBBPDEV_INTERFACE_H
 #define LIBBPDEV_INTERFACE_H
+#include "hdr.h"
 
 
 #ifdef LIBBPDEVEXPORT                                                 
@@ -22,66 +23,61 @@
 #define OUT 
 
 
+
+
 //////////////////////////////////////////////////////////////////////////
-/// @function [InitDevice]
-/// @brief [打开USB HID类型设备]
+/// @function [BpInitDevice]
+/// @brief [初始化设备]
 ///
-/// @param [in] szDevContent	[设备内容，
-///	USB设备JSON格式： {wVID:"xxx",wPID:"xxx"}；
-/// 串口设备JSON格式：{Com："名称"，nBaud："波特率"，parity："奇偶检验位"，DataBit："数据位"，StopBits:"停止位"}  
+/// @param [in] szDevContent	[设备内容:
+///	HID USB设备JSON格式： {"TAG":"Usb","Param":{wVID:"xxx",wPID:"xxx"}}；
+/// 串口设备JSON格式：{"TAG":"Serial","Param":{Com："名称"，nBaud："波特率"，parity："奇偶检验位"，DataBit："数据位"，StopBits:"停止位"}}  
 ///                             ]
-/// @param [in] nFormatType		[数据格式类型，0表示json格式，1表示xml格式，2表示protobuf格式]
 /// @return						[int 类型]
 //////////////////////////////////////////////////////////////////////////
 BPDEVEXPORT int BpInitDevice(IN const char *szDevContent);
 
 //////////////////////////////////////////////////////////////////////////
-/// @function [OpenDevice]
-/// @brief [打开USB HID类型设备]
+/// @function [BpOpenDevice]
+/// @brief [打开设备]
 ///
-/// @param [in] szDevContent	[设备内容，
-///	USB设备JSON格式： {wVID:"xxx",wPID:"xxx"}；
-/// 串口设备JSON格式：{Com："名称"，nBaud："波特率"，parity："奇偶检验位"，DataBit："数据位"，StopBits:"停止位"}  
-///                             ]
-/// @param [in] nDevType		[设备类型，0表示串口设备，1表示USB设备]
 /// @return						[int 类型]
 //////////////////////////////////////////////////////////////////////////
 BPDEVEXPORT int BpOpenDevice();
 
 //////////////////////////////////////////////////////////////////////////
-/// @function [CloseDevice]
+/// @function [BpCloseDevice]
 /// @brief [关闭设备]
 ///
 /// @return				[int 类型]
 //////////////////////////////////////////////////////////////////////////
 BPDEVEXPORT int BpCloseDevice();
 
-/// @function [WriteDevice]
+/// @function [BpWriteDevice]
 /// @brief [写数据到设备]
 ///
 /// @param [in] pData	[数据内容]
 /// @param [in] nSize	[数据长度]
-/// @param [OUT] pResultData	[返回的结果数据，返回值可以为空]
-/// @param [OUT] nResultSize	[返回的结果数据大小，返回值可以为0]
+/// @param [OUT] pResultData	[返回的结果数据，无结果返回值为空]
+/// @param [OUT] nResultSize	[返回的结果数据大小，无结果返回值为0]
 /// @return				[int 类型]
 //////////////////////////////////////////////////////////////////////////
 BPDEVEXPORT int BpWriteDevice(IN const char *pData, IN int nSize, \
 	OUT char **pResultData,  OUT int &nResultSize);
 
 //////////////////////////////////////////////////////////////////////////
-/// @function [ReadDevice]
+/// @function [BpReadDevice]
 /// @brief [读设备]
 ///
 /// @param [OUT] pData	[数据内容]
 /// @param [OUT] nSize	[数据长度]
-/// @param [in] nTimeOut	[超时时间]
 /// @return				[int 类型]
 //////////////////////////////////////////////////////////////////////////
 BPDEVEXPORT int BpReadDevice(OUT char **pData, OUT int &nSize);
 
 
 //////////////////////////////////////////////////////////////////////////
-/// @function [FreeMemory]
+/// @function [BpFreeMemory]
 /// @brief [读设备]
 ///
 /// @param [in] pData	[数据内容]
@@ -92,14 +88,7 @@ BPDEVEXPORT int BpFreeMemory(IN char **pData);
 
 
 
-
-
-
-
-
 #endif
-
-
 
 
 
