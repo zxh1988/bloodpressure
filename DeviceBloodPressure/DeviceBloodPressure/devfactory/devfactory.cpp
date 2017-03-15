@@ -22,7 +22,7 @@ IDevInterfaceType *CDevFactory::CreateDevInterface(E_DevInterfaceType_t eType)
 	}
 	else if (DEV_USB_TYPE == eType)
 	{
-		//pDevType = new Dev::CUsbDev();
+		pDevType = new Dev::CUsbDev();
 	}
 	else
 	{}

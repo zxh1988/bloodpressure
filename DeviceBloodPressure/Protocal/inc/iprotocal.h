@@ -17,7 +17,7 @@ public:
 	virtual ~IProtocal(void) = 0{};
 
 public:
-	virtual int ParseProtocal(IN const char *pData, IN int nType, OUT char *&pParsedData, OUT int &nCount) = 0;
+	virtual int ParseProtocal(IN const char *pData, IN int nType, OUT char *&pParsedData, OUT int &nLen) = 0;
 
 
 };

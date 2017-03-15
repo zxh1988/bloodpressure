@@ -54,6 +54,12 @@
     <ClInclude Include="inc\devtemplete.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="inc\usb\Usb.h">
+      <Filter>devfactory\usb</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\membuffer.h">
+      <Filter>devfactory\usb</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -76,6 +82,12 @@
     </ClCompile>
     <ClCompile Include="src\devtemplete.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\usb\Usb.cpp">
+      <Filter>devfactory\usb</Filter>
+    </ClCompile>
+    <ClCompile Include="src\usb\membuffer.cpp">
+      <Filter>devfactory\usb</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

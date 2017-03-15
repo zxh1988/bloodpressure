@@ -77,6 +77,11 @@ int CDevServer::InitDevice(IN const char *szDevContent)
 	}
 	else if (Format::USB_DEV_TYPE == nDevType)	//USBÉè±¸
 	{
+		//3¡¢usb½âÎö
+		/*Parser::CParserFactory parserfactory;
+		m_pSerialParser = parserfactory.CreateParser(Parser::SERIAL_DATA_TYPE);
+		CheckNullPtr(m_pSerialParser);
+		nRet = (E_Status_t)m_pSerialParser->Parse(szDevContent, nDevType, pFormatData);*/
 	}
 
 	m_nDevType = nDevType;
