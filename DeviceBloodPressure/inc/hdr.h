@@ -1,9 +1,9 @@
 /*************************************************
-  Copyright (C), 2015-2020, Àí°î¾«ÃÜÒÇÆ÷¹É·ÝÓÐÏÞ¹«Ë¾
-  @File name:	
+  Copyright (C), 2015-2020, ï¿½ï¿½ï¿½î¾«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É·ï¿½ï¿½ï¿½ï¿½Þ¹ï¿½Ë¾
+  @File name:
   @Author:   	xianhui zhang
   @Date:     	2016-09-02
-  @Description:  
+  @Description:
 *************************************************/
 
 #ifndef HDR_H
@@ -12,16 +12,16 @@
 typedef enum E_STATUS
 {
 	UNKNOW_STATUS	= -1,
-	SUCCESS,				//²Ù×÷³É¹¦
-	FAIL,					//²Ù×÷Ê§°Ü
-	NO_RECORD_DATA,			//ºÐ×ÓÎÞ¼ÇÂ¼Êý¾Ý
-	EXCEPTION,				//²Ù×÷Éè±¸Òì³£
-	DISCONNECT,				//Éè±¸Õ¼ÓÃ»ò²»´æÔÚ
-	TIMEOUT,				//¶ÁÉè±¸³¬Ê±
-	WRITE_DEVICE_FAIL,		//Ð´Éè±¸Ê§°Ü
-	READ_DEVICE_FAIL,		//¶ÁÉè±¸Ê§°Ü
-	JSON_FORMAT_ERROR,		//JSON¸ñÊ½´íÎó
-	OUT_OF_MEMORY			//ÄÚ´æ²»¹»
+	SUCCESS,				//ï¿½ï¿½ï¿½ï¿½ï¿½É¹ï¿½
+	FAIL,					//ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½
+	NO_RECORD_DATA,			//ï¿½ï¿½ï¿½ï¿½ï¿½Þ¼ï¿½Â¼ï¿½ï¿½ï¿½ï¿½
+	EXCEPTION,				//ï¿½ï¿½ï¿½ï¿½ï¿½è±¸ï¿½ì³£
+	DISCONNECT,				//ï¿½è±¸Õ¼ï¿½Ã»ò²»´ï¿½ï¿½ï¿½
+	TIMEOUT,				//ï¿½ï¿½ï¿½è±¸ï¿½ï¿½Ê±
+	WRITE_DEVICE_FAIL,		//Ð´ï¿½è±¸Ê§ï¿½ï¿½
+	READ_DEVICE_FAIL,		//ï¿½ï¿½ï¿½è±¸Ê§ï¿½ï¿½
+	JSON_FORMAT_ERROR,		//JSONï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½
+	OUT_OF_MEMORY			//ï¿½Ú´æ²»ï¿½ï¿½
 
 }E_Status_t;
 
@@ -31,4 +31,3 @@ typedef enum E_STATUS
 
 
 #endif
-

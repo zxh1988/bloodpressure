@@ -19,8 +19,8 @@ class IProtocal;
 class CProtocalFactory
 {
 public:
-	CProtocalFactory(void);
-	~CProtocalFactory(void);
+	CProtocalFactory(void) {};
+	~CProtocalFactory(void){};
 
 public:
 	IProtocal *CreateProtocal(E_Protocal_Type_t eType);
@@ -29,6 +29,6 @@ public:
 
 
 
-__END_NAMESPACE(Parser)
+__END_NAMESPACE(Protocal)
 
 

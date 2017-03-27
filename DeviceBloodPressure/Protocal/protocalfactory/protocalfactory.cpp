@@ -1,21 +1,12 @@
 #include "StdAfx.h"
 #include "protocalfactory.h"
 #include "serialprotocal.h"
-
+#include "usbprotocal.h"
 
 
 __BEGIN_NAMESPACE(Protocal)
 
 
-
-CProtocalFactory::CProtocalFactory(void)
-{
-}
-
-
-CProtocalFactory::~CProtocalFactory(void)
-{
-}
 
 
 IProtocal *CProtocalFactory::CreateProtocal(E_Protocal_Type_t eType)
@@ -28,7 +19,7 @@ IProtocal *CProtocalFactory::CreateProtocal(E_Protocal_Type_t eType)
 	}
 	else if (USB_DATA_TYPE == eType)
 	{
-		//pProtocal = new CUsbDev();
+		pProtocal = new UsbProtocal();
 	}
 	else
 	{}
@@ -37,4 +28,4 @@ IProtocal *CProtocalFactory::CreateProtocal(E_Protocal_Type_t eType)
 }
 
 
-__END_NAMESPACE(Parser)
+__END_NAMESPACE(Protocal)

@@ -7,43 +7,51 @@
 __BEGIN_NAMESPACE(Parser)
 
 
-SerialDataParser::SerialDataParser(void)
-{
-}
 
-
-SerialDataParser::~SerialDataParser(void)
+int SerialDataParser::Parse(IN const char *pData, IN int &nType, OUT char *&pParsedData)
 {
-}
+	E_Status_t eRet = SUCCESS;
 
-int SerialDataParser::Parse(IN const char *pData, IN int nType, OUT char *&pParsedData)
-{
-	E_Status_t nRet = UNKNOW_STATUS;
-	switch(nType)
+	CheckNullPtr(pData);
+	const char *pBuf = pData;
+
+	cJSON *pRoot;
+	if (pRoot = cJSON_Parse(pBuf), NULL == pRoot) return JSON_FORMAT_ERROR;
+	//1、Tag type
+	cJSON *pTagType = cJSON_GetObjectItem(pRoot, TAG);
+	CheckNullPtr(pTagType);
+
+	Format::HeadParam_t headparam = { 0 };
+	sprintf_s(headparam.szTag, sizeof(headparam.szTag), pTagType->valuestring);
+
+	//cmd
+	cJSON *pCmd = cJSON_GetObjectItem(pRoot, CMD);
+	sprintf_s(headparam.szCmd, sizeof(headparam.szCmd), pCmd->valuestring);
+
+	cJSON_Delete(pRoot);
+	pRoot = NULL;
+
+	if (0 == strncasecmp(headparam.szCmd, DEVICE_COM, strlen(headparam.szCmd)))
 	{
-	case Format::SERIAL_DEV_TYPE:
-		nRet = (E_Status_t)ParseSerialDevFormat(pData, pParsedData);
-		break;
-	case Format::USB_DEV_TYPE:
-		break;
-	case Format::SERIAL_MESSAGE_PROTOCAL:
-		nRet = (E_Status_t)ParseMessureTime(pData, pParsedData);
-		break;
-	case Format::SERIAL_RECORD_SUM:
-		nRet = (E_Status_t)ParseRecordSum(pData, pParsedData);
-		break;
-	case Format::SERIAL_RECORD_DATA:
-		nRet = SUCCESS;
-		break;
-	case Format::USB_RRCD_PROTOCAL:
-		nRet = SUCCESS;
-		break;
-	default:
-		break;
+		nType = Format::HingMed_ABP_DEV_INIT;
+		eRet = (E_Status_t)ParseSerialDevFormat(pData, pParsedData);
 	}
-
-	return nRet;
+	else if (0 == strncasecmp(headparam.szCmd, MEASURE_MODE, strlen(headparam.szCmd)))
+	{
+		nType = Format::HingMed_ABP_MEASURE_MODE;
+		eRet = (E_Status_t)ParseMessureTimeMode(pData, pParsedData);
+	}
+	else if (0 == strncasecmp(headparam.szCmd, RRCD_COMMAND, strlen(headparam.szCmd)))
+	{
+		nType = Format::HingMed_ABP_GET_RECORD_DATA;
+	}
+	else
+	{
+		nType = Format::UNKNOW_TYPE;
+	}	
+	return eRet;
 }
+
 
 int SerialDataParser::ParseSerialDevFormat(IN const char *pData, OUT char *&pFormatData)
 {
@@ -58,7 +66,16 @@ int SerialDataParser::ParseSerialDevFormat(IN const char *pData, OUT char *&pFor
 	//1、Tag type
 	cJSON *pTagType = cJSON_GetObjectItem(pRoot, TAG);
 	CheckNullPtr(pTagType);
+
+	Format::HeadParam_t headparam = { 0 };
+	sprintf_s(headparam.szTag, sizeof(headparam.szTag), pTagType->valuestring);
+
+	//cmd
+	cJSON *pCmd = cJSON_GetObjectItem(pRoot, CMD);
+	sprintf_s(headparam.szCmd, sizeof(headparam.szCmd), pCmd->valuestring);
+
 	Format::SerialDevData_t devdata = {0};
+	memcpy(&devdata.Head, &headparam, sizeof(devdata.Head));
 
 	//2、param
 	cJSON *pParamObj = cJSON_GetObjectItem(pRoot, PARAM);
@@ -95,7 +112,7 @@ int SerialDataParser::ParseSerialDevFormat(IN const char *pData, OUT char *&pFor
 	return nRet;
 }
 
-int SerialDataParser::ParseMessureTime(IN const char *pData, OUT char *&pFormatData)
+int SerialDataParser::ParseMessureTimeMode(IN const char *pData, OUT char *&pFormatData)
 {
 	E_Status_t eRet = SUCCESS;
 
@@ -108,13 +125,16 @@ int SerialDataParser::ParseMessureTime(IN const char *pData, OUT char *&pFormatD
 	//1、Tag type
 	cJSON *pTagType = cJSON_GetObjectItem(pRoot, TAG);
 	CheckNullPtr(pTagType);
-	Format::MessureTime_t messuredata = {0};
-
-	sprintf_s(messuredata.szTag, sizeof(messuredata.szTag), "%s", pTagType->valuestring);
 	
+	Format::HeadParam_t headparam = { 0 };
+	sprintf_s(headparam.szTag, sizeof(headparam.szTag), pTagType->valuestring);
+
 	//cmd
 	cJSON *pCmd = cJSON_GetObjectItem(pRoot, CMD);
-	sprintf_s(messuredata.szCmd, sizeof(messuredata.szCmd), "%s", pCmd->valuestring);
+	sprintf_s(headparam.szCmd, sizeof(headparam.szCmd), pCmd->valuestring);
+
+	Format::MessureTime_t messuredata = {0};
+	memcpy(&messuredata.Head, &headparam, sizeof(messuredata.Head));
 
 	//2、param
 	cJSON *pParamObj = cJSON_GetObjectItem(pRoot, PARAM);
@@ -167,33 +187,6 @@ int SerialDataParser::ParseMessureTime(IN const char *pData, OUT char *&pFormatD
 	return eRet;
 }
 
-
-int SerialDataParser::ParseRecordSum(IN const char *pData, OUT char *&pFormatData)
-{
-	E_Status_t eRet = SUCCESS;
-
-	CheckNullPtr(pData);
-	const char *pBuf = pData;
-
-	cJSON *pRoot;
-	if (pRoot = cJSON_Parse(pBuf), NULL == pRoot) return JSON_FORMAT_ERROR;
-
-	//1、Tag窃侏
-	cJSON *pTagType = cJSON_GetObjectItem(pRoot, TAG);
-	CheckNullPtr(pTagType);
-
-	Format::CmdKey_t cmdkey = {0};
-	sprintf_s(cmdkey.szTag, sizeof(cmdkey.szTag), "%s", pTagType->valuestring);
-
-	//2、cmd
-	//cJSON *pRecordSum = cJSON_GetObjectItem(pRoot, READ_RECORD_SUM);
-	//sprintf_s(cmdkey.szCmd, sizeof(cmdkey.szCmd), "%s", pRecordSum->valuestring);
-
-
-	cJSON_Delete(pRoot);
-	pRoot = NULL;
-	return eRet;
-}
 
 
 

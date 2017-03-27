@@ -9,21 +9,15 @@
 #define OUT
 
 
+#ifdef WIN32
+#define strncasecmp strnicmp
+#else
+/* Other systems have strncasecmp */
+#endif
 
-#define TAG							"TAG"
-#define CMD							"Cmd"
-#define PARAM						"Param"
 
-#define DEVICE_TYPE					"DeviceType"
-#define DEVICE_HINGMED_NAME			"HingMed_ABP"	//星脉盒子
-#define DEVICE_ACF_NAME				"ACF"			//艾讯
 
-#define DEVICE_COM					"Serial"		//串口设备名称
-#define DEVICE_USB					"USB"			//USB设备名称
-#define DEVICE_WRITE				"Write"			//写命令
-
-#define READ_RECORD_SUM				"GetRecordSum"	//读取记录总数
-#define READ_RECORD_DATA			"RRCD"			//读取记录数据
+#define DEVICE_COM			"Serial"		//串口设备名称
 
 
 //串口类型字定义
@@ -33,7 +27,8 @@
 #define SERIAL_DATABITS		"DataBits"
 #define SERIAL_STOPBITS		"StopBits"
 
-//测量时间字符串定义
+
+//星脉测量时间字符串定义
 #define MESSAGE_USER_ID				"UserID"			//用户ID
 #define MESSAGE_USER_NAME			"UserName"			//用户名称
 #define MESSAGE_MODE				"Mode"				//模式：0表示固定模式，1表示标准模式
@@ -46,7 +41,6 @@
 
 
 
-
 __BEGIN_NAMESPACE(Parser)
 
 
@@ -55,15 +49,15 @@ class SerialDataParser :
 	public IParserInterface
 {
 public:
-	SerialDataParser(void);
-	~SerialDataParser(void);
+	SerialDataParser(void){};
+	~SerialDataParser(void){};
 
 public:
-	int Parse(IN const char *pData, IN int nType, OUT char *&pParsedData);
+	int Parse(IN const char *pData, IN int &nType, OUT char *&pParsedData);
 
+protected:
 	int ParseSerialDevFormat(IN const char *pData, OUT char *&pFormatData);
-	int ParseMessureTime(IN const char *pData, OUT char *&pFormatData);
-	int ParseRecordSum(IN const char *pData, OUT char *&pFormatData);
+	int ParseMessureTimeMode(IN const char *pData, OUT char *&pFormatData);
 
 
 };

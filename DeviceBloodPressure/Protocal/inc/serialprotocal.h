@@ -1,7 +1,5 @@
 #pragma once
 #include "iprotocal.h"
-
-
 //…Ë±∏
 #include "idevinterfacetype.h"
 #include "devfactory.h"
@@ -19,7 +17,7 @@ public:
 	int ParseProtocal(IN const char *pData, IN int nType, OUT char *&pProtocalData, OUT int &nLen);
 
 protected:
-	int ParseMessageProtocal(IN const char *pData, OUT char *pProtocalData);
+	int ParseMeasureTimeModeProtocal(IN const char *pData, OUT char *&pProtocalData);
 	int ParseRecordsDataProtocal(IN const char *pData, OUT char *&pProtocalData, OUT int &nLen);
 	int ParseRecordSumProtocal(IN const char *pData, OUT char *pProtocalData, OUT int &nCount);
 
@@ -63,6 +61,6 @@ private:
 };
 
 
-__END_NAMESPACE(Parser)
+__END_NAMESPACE(Protocal)
 
 

@@ -45,6 +45,12 @@
     <ClInclude Include="inc\serialdataparser.h">
       <Filter>parsefactory\serialcom</Filter>
     </ClInclude>
+    <ClInclude Include="inc\usb\usbdataparser.h">
+      <Filter>parsefactory\usb</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\usb\acfdatahdr.h">
+      <Filter>parsefactory\usb</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -58,6 +64,9 @@
     </ClCompile>
     <ClCompile Include="parserfactory\serialcom\serialdataparser.cpp">
       <Filter>parsefactory\serialcom</Filter>
+    </ClCompile>
+    <ClCompile Include="src\usb\usbdataparser.cpp">
+      <Filter>parsefactory\usb</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

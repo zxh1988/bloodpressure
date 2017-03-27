@@ -20,7 +20,6 @@ IFormat *CFormatFactory::CreateFormat(E_FormatType_t eType)
 	}
 	else if (XML_FORMAT_TYPE == eType)
 	{
-		//pFormat = new CUsbDev();
 	}
 	else
 	{}

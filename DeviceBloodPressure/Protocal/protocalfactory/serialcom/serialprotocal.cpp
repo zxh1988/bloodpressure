@@ -1,13 +1,10 @@
 #include "StdAfx.h"
 #include "serialprotocal.h"
-
 #include "datatype.h"
-
 #include <time.h>
 
 
 __BEGIN_NAMESPACE(Protocal)
-
 
 
 
@@ -143,11 +140,9 @@ int CSerialProtocal::ParseProtocal(IN const char *pData, IN int nType, OUT char 
 	E_Status_t nRet = UNKNOW_STATUS;
 	switch(nType)
 	{
-	case Format::SERIAL_DEV_TYPE:
+	case Format::HingMed_ABP_DEV_INIT:
 		//设备初始化
 		nRet = (E_Status_t)InitDevice(pData);
-		break;
-	case Format::USB_DEV_TYPE:
 		break;
 	case Format::OPEN_DEVICE:
 		nRet = (E_Status_t)OpenDevice();  
@@ -155,16 +150,11 @@ int CSerialProtocal::ParseProtocal(IN const char *pData, IN int nType, OUT char 
 	case Format::CLOSE_DEVICE:
 		nRet = (E_Status_t)CloseDevice();
 		break;
-	case Format::SERIAL_MESSAGE_PROTOCAL:
-		nRet = (E_Status_t)ParseMessageProtocal(pData, pParsedData);
+	case Format::HingMed_ABP_MEASURE_MODE:
+		nRet = (E_Status_t)ParseMeasureTimeModeProtocal(pData, pParsedData);
 		break;
-	case Format::SERIAL_RECORD_SUM:
-		nRet = (E_Status_t)ParseRecordSumProtocal(pData, pParsedData, nLen);
-		break;
-	case Format::SERIAL_RECORD_DATA:
+	case Format::HingMed_ABP_GET_RECORD_DATA:
 		nRet = (E_Status_t)ParseRecordsDataProtocal(pData, pParsedData, nLen);
-		break;
-	case Format::USB_RRCD_PROTOCAL:
 		break;
 	default:
 		break;
@@ -173,7 +163,7 @@ int CSerialProtocal::ParseProtocal(IN const char *pData, IN int nType, OUT char 
 	return nRet;
 }
 
-int CSerialProtocal::ParseMessageProtocal(IN const char *pData, OUT char *pProtocalData)
+int CSerialProtocal::ParseMeasureTimeModeProtocal(IN const char *pData, OUT char *&pProtocalData)
 {
 	E_Status_t eRet = UNKNOW_STATUS;
 	Format::MessureTime_t *pMessageTime = (Format::MessureTime_t *)pData;
@@ -501,9 +491,9 @@ int CSerialProtocal::ParseRecordsDataProtocal(IN const char *pData, OUT char *&p
 
 		Format::RecordData_t recorddata = {0};
 		recorddata.nRecordId = i;
-		recorddata.nSys = ((pReadData[3] << 8) & 0xff) | pReadData[4];	//舒张压
-		recorddata.nDia = ((pReadData[5] << 8) & 0xff) | pReadData[6];	//收缩压
-		recorddata.nRate = ((pReadData[7] << 8) & 0xff) | pReadData[8];	//心率
+		recorddata.nSys = ((pReadData[3] << 8) & 0xff00) | (pReadData[4] & 0xff);	//舒张压
+		recorddata.nDia = ((pReadData[5] << 8) & 0xff00) | (pReadData[6] & 0xff);	//收缩压
+		recorddata.nRate = ((pReadData[7] << 8) & 0xff00) | (pReadData[8] & 0xff);	//心率
 		recorddata.nYear = pReadData[9];
 		recorddata.nMon = pReadData[10];
 		recorddata.nDay = pReadData[11];
@@ -799,10 +789,6 @@ int CSerialProtocal::SetDataClr(OUT char &nPacketLen)		//数据清零
 	return eRet;
 }
 
-
-
-
-
 /******************************************************************************
 **函数名:Crc16cal
 **入  口:
@@ -854,5 +840,5 @@ unsigned short CSerialProtocal::Crc16cal(unsigned char p[], unsigned char num)
 
 
 
-__END_NAMESPACE(Parser)
+__END_NAMESPACE(Protocal)
 

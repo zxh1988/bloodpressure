@@ -83,7 +83,6 @@
     <ClInclude Include="inc\fromattemplete.h" />
     <ClInclude Include="inc\iformat.h" />
     <ClInclude Include="inc\jsonformat.h" />
-    <ClInclude Include="inc\jsonwrap.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
@@ -92,7 +91,6 @@
     <ClCompile Include="formatfactory\formatfactory.cpp" />
     <ClCompile Include="formatfactory\json\jsonformat.cpp" />
     <ClCompile Include="src\data\datatype.cpp" />
-    <ClCompile Include="src\jsonwrap.cpp" />
     <ClCompile Include="src\json\cJSON.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

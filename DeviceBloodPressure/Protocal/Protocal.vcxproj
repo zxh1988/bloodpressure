@@ -49,7 +49,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\Protocal\inc;..\inc;..\DeviceBloodPressure\inc;..\DataFormat\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Protocal\inc;..\inc;..\DeviceBloodPressure\inc;..\DataFormat\inc;..\Protocal\inc\usb;..\Parser\inc\usb;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -64,7 +64,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\Protocal\inc;..\inc;..\DeviceBloodPressure\inc;..\DataFormat\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Protocal\inc;..\inc;..\DeviceBloodPressure\inc;..\DataFormat\inc;..\Protocal\inc\usb;..\Parser\inc\usb;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -80,6 +80,7 @@
     <ClInclude Include="inc\iprotocal.h" />
     <ClInclude Include="inc\protocalfactory.h" />
     <ClInclude Include="inc\serialprotocal.h" />
+    <ClInclude Include="inc\usb\usbprotocal.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
@@ -87,10 +88,16 @@
     <ClCompile Include="Protocal.cpp" />
     <ClCompile Include="protocalfactory\protocalfactory.cpp" />
     <ClCompile Include="protocalfactory\serialcom\serialprotocal.cpp" />
+    <ClCompile Include="src\usb\usbprotocal.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DeviceBloodPressure\DeviceBloodPressure.vcxproj">
+      <Project>{2284fed3-1579-4c2c-98be-27215d3aed9c}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

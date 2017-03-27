@@ -4,6 +4,8 @@
 
 #include "cJSON.h"
 
+#include <iostream>
+
 
 
 __BEGIN_NAMESPACE(Format)
@@ -11,57 +13,52 @@ __BEGIN_NAMESPACE(Format)
 
 
 
-
 int CJsonFormat::ParseFormat(IN const char *pData, OUT int &nType, OUT char *&pFormatData)
 {
-	E_Status_t nRet = SUCCESS;
+	E_Status_t eRet = SUCCESS;
 	
 	CheckNullPtr(pData);
 	const char *pBuf = pData;
 
 	cJSON *pRoot;
 	if (pRoot = cJSON_Parse(pBuf), NULL == pRoot) return JSON_FORMAT_ERROR;
-	//1、device type
+	//1、Tag type
 	cJSON *pTagType = cJSON_GetObjectItem(pRoot, TAG);
 	CheckNullPtr(pTagType);
 
-	char szDeviceName[MIN_LEN] = "\0";
-	sprintf_s(szDeviceName, sizeof(szDeviceName), pTagType->valuestring);
+	Format::HeadParam_t headparam = { 0 };
+	sprintf_s(headparam.szTag, sizeof(headparam.szTag), pTagType->valuestring);
 
-	if (0 == strcmp(szDeviceName, DEVICE_COM))	//parse serial device type
+	//cmd
+	cJSON *pCmd = cJSON_GetObjectItem(pRoot, CMD);
+	sprintf_s(headparam.szCmd, sizeof(headparam.szCmd), pCmd->valuestring);
+
+	cJSON_Delete(pRoot);
+	pRoot = NULL;
+	
+	if (0 == strncasecmp(headparam.szTag, DEVICE_HINGMED_NAME, strlen(headparam.szTag)))//星脉设备
 	{
-		nType = SERIAL_DEV_TYPE;
+		//3、解析
+		Parser::CParserFactory parserfactory;
+		Parser::IParserInterface *pSerialParser = parserfactory.CreateParser(Parser::SERIAL_DATA_TYPE);
+		CheckNullPtr(pSerialParser);		
+		eRet = (E_Status_t)pSerialParser->Parse(pData, nType, pFormatData);
+		DELPTR(pSerialParser);
 	}
-	else if (0 == strcmp(szDeviceName, DEVICE_USB))	//parse usb device type
+	else if (0 == strncasecmp(headparam.szTag, DEVICE_ACF_NAME, strlen(headparam.szTag)))	//艾讯设备
 	{ 		
-		nType = USB_DEV_TYPE;	
-		//TODO:未实现
-	}
-	else if (0 == strcmp(szDeviceName, DEVICE_HINGMED_NAME))	//星脉设备
-	{
-		nType = SERIAL_MESSAGE_PROTOCAL;	
-		//m_pSerialParser->Parse(pData, nType, pFormatData);
-	}
-	else if (0 == strcmp(szDeviceName, DEVICE_ACF_NAME))		//艾讯设备
-	{
-	}
-	else if (0 == strcmp(szDeviceName, READ_RECORD_SUM))	//获取记录总数
-	{
-		nType = SERIAL_RECORD_SUM;
-	}
-	else if (0 == strcmp(szDeviceName, READ_RECORD_DATA))	//获取记录数据
-	{
-		nType = SERIAL_RECORD_DATA;
+		//3、解析
+		Parser::CParserFactory parserfactory;
+		Parser::IParserInterface *pUsbParser = parserfactory.CreateParser(Parser::USB_DATA_TYPE);
+		CheckNullPtr(pUsbParser);
+		eRet = (E_Status_t)pUsbParser->Parse(pData, nType, pFormatData);
+		DELPTR(pUsbParser);
 	}
 	else
 	{
 		nType = UNKNOW_TYPE;
-	}	
-
-	cJSON_Delete(pRoot);
-	pRoot = NULL;
-
-	return nRet;
+	}
+	return eRet;
 }
 
 
@@ -73,29 +70,95 @@ int CJsonFormat::CreateFormat(IN const char *pData, IN int nLen, \
 
 	switch(nType)
 	{
-	case Format::SERIAL_DEV_TYPE:
+	case Format::HingMed_ABP_DEV_INIT:
 		nRet = SUCCESS;
 		break;
-	case Format::USB_DEV_TYPE:
+	case Format::ACF_DEV_INIT:
 		nRet = SUCCESS;
 		break;
-	case Format::SERIAL_MESSAGE_PROTOCAL:
+	case Format::HingMed_ABP_MEASURE_MODE:
 		nRet = SUCCESS;
 		break;
-	case Format::SERIAL_RECORD_SUM:
-		nRet = SUCCESS;
-		break;
-	case Format::SERIAL_RECORD_DATA:
+	case Format::HingMed_ABP_GET_RECORD_DATA:
 		nRet = (E_Status_t)CreateFromatRecordData(pData, nLen, pFormatData, FormatLen);
 		break;
-	case Format::USB_RRCD_PROTOCAL:
-		nRet = SUCCESS;
+	case Format::ACF_GET_RECORD_DATA:
+		nRet = (E_Status_t)CreateACFRecordData(pData, nLen, pFormatData, FormatLen);
 		break;
 	default:
 		break;
 	}
 
 	return nRet;
+}
+
+int CJsonFormat::CreateACFRecordData(IN const char *pData, IN int nLen,\
+	OUT char **pFormatData,	OUT int &FormatLen)
+{
+	E_Status_t eRet = SUCCESS;
+	CheckNullPtr(pData);
+	const char *pBuf = pData;
+
+	//2、取测量record记录数据
+	int nRecordDataLen =  sizeof(Format::acf_record_data_t);
+	int nCount = nLen/ nRecordDataLen;
+	Format::acf_record_data_t *pRecordData = (Format::acf_record_data_t *)pBuf;
+
+	cJSON *pRoot = cJSON_CreateObject();
+	if (NULL == pRoot) return OUT_OF_MEMORY;
+
+	char szId[128] = { 0 };
+	sprintf_s(szId, sizeof(szId), "%d", pRecordData->nId);
+	cJSON_AddStringToObject(pRoot,"ID",szId);	//用户ID
+
+	cJSON *pMeasureDataList = cJSON_CreateArray();
+	if (NULL == pMeasureDataList) return OUT_OF_MEMORY;
+	cJSON_AddItemToObject(pRoot, "MeasureData", pMeasureDataList);
+
+	for (int i = 0; i < nCount; i++)
+	{
+		cJSON *pMeasureData = cJSON_CreateObject();
+		if(NULL == pMeasureData) return OUT_OF_MEMORY;	
+
+		char szBuf[128] = { 0 };
+		int year,mon,day,hour,min,sec;
+		year = pRecordData->nYear;
+		mon = pRecordData->nMon;
+		day = pRecordData->nDay;
+		hour = pRecordData->nHour;
+		min = pRecordData->nMin;
+		sec = pRecordData->nSec;
+		sprintf_s(szBuf, sizeof(szBuf),"%4d%2d%2d%2d%2d%2d",year,mon,day,hour,min,sec);
+
+		cJSON_AddStringToObject(pMeasureData,"Time", szBuf);
+
+		memset(szBuf, 0 ,sizeof(szBuf));
+		sprintf_s(szBuf, sizeof(szBuf), "%d", pRecordData->nSys);
+		cJSON_AddStringToObject(pMeasureData,"SP", szBuf);
+
+		memset(szBuf, 0 ,sizeof(szBuf));
+		sprintf_s(szBuf, sizeof(szBuf), "%d", pRecordData->nDia);
+		cJSON_AddStringToObject(pMeasureData,"DP",szBuf);
+
+		memset(szBuf, 0 ,sizeof(szBuf));
+		sprintf_s(szBuf, sizeof(szBuf), "%d", pRecordData->nRate);
+		cJSON_AddStringToObject(pMeasureData,"HR",szBuf);
+		cJSON_AddStringToObject(pMeasureData,"AverHR","");
+		cJSON_AddStringToObject(pMeasureData,"Status","");
+		cJSON_AddStringToObject(pMeasureData,"IsValid","");
+		cJSON_AddStringToObject(pMeasureData,"Position","");
+
+		cJSON_AddItemToArray(pMeasureDataList,pMeasureData);
+		pRecordData += 1;
+	}
+
+	char *pJsonData = cJSON_Print(pRoot);
+	FormatLen = strlen(pJsonData);
+	*pFormatData = new char[FormatLen + 1];
+	*(*pFormatData + FormatLen) = '\0';
+	memcpy(*pFormatData, pJsonData, FormatLen);
+
+	return eRet;
 }
 
 

@@ -1,5 +1,9 @@
-﻿Build started 3/15/2017 16:44:38.
+﻿Build started 3/27/2017 11:24:13.
+     1>Project "E:\zhangxianhui\Git\bloodpressure\DeviceBloodPressure\DevServer\DevServer.vcxproj" on node 2 (clean target(s)).
+     1>_PrepareForClean:
+         Deleting file "Release\DevServer.lastbuildstate".
+     1>Done Building Project "E:\zhangxianhui\Git\bloodpressure\DeviceBloodPressure\DevServer\DevServer.vcxproj" (clean target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:00.01
+Time Elapsed 00:00:00.00

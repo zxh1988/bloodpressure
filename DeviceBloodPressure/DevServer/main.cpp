@@ -30,7 +30,6 @@ int _tmain(int argc, _TCHAR* argv[])
 	//1、打开设备TODO:
 	nRet = pDevServer->OpenDevice();
 
-
 	//2、写设备TODO:/*HingMed_ABP表示星脉设备*/
 	char *pWriteData = "{\
 					   \"TAG\":\"HingMed_ABP\", \
@@ -71,6 +70,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	int nSize;
 	nRet = pDevServer->ReadDevice(pReadData, nSize);
 
+
 	//4、释放内存TODO:
 	nRet = pDevServer->FreeMemory(&pResultData);
 
@@ -84,4 +84,3 @@ int _tmain(int argc, _TCHAR* argv[])
 	getchar();
 	return 0;
 }
-

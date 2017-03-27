@@ -1,11 +1,17 @@
 #pragma once
 #include "iformat.h"
 #include "datatype.h"
-#include "jsonwrap.h"
 
 //parser factory
 #include "iparserinterface.h"
 #include "parserfactory.h"
+
+
+#ifdef WIN32
+#define strncasecmp strnicmp
+#else
+/* Other systems have strncasecmp */
+#endif
 
 
 __BEGIN_NAMESPACE(Format)
@@ -34,6 +40,9 @@ public:
 protected:
 	int CreateFromatRecordData(IN const char *pData, IN int nLen,\
 		OUT char **pFormatData,	OUT int &FormatLen);
+	int CreateACFRecordData(IN const char *pData, IN int nLen,\
+		OUT char **pFormatData,	OUT int &FormatLen);
+
 
 
 private:

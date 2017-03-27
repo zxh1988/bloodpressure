@@ -23,7 +23,6 @@ public:
 	CFormatFactory(void){};
 	~CFormatFactory(void){};
 
-
 public:
 	IFormat *CreateFormat(E_FormatType_t eType);
 

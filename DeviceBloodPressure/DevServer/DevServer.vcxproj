@@ -97,9 +97,6 @@
     <ProjectReference Include="..\DataFormat\DataFormat.vcxproj">
       <Project>{ee6b48a7-e8de-49a9-84e5-37237942dfa5}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\DeviceBloodPressure\DeviceBloodPressure.vcxproj">
-      <Project>{2284fed3-1579-4c2c-98be-27215d3aed9c}</Project>
-    </ProjectReference>
     <ProjectReference Include="..\Parser\Parser.vcxproj">
       <Project>{1a9e489e-9615-4fed-bbb8-128611e2c5f2}</Project>
     </ProjectReference>

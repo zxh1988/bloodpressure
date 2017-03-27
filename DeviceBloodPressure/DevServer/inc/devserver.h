@@ -43,12 +43,15 @@ public:
 
 private:
 	
-	Format::IFormat *m_pJsonFormat;	//格式
+	//Format::IFormat *m_pJsonFormat;	//格式
 	int m_nDevType;
 	bool m_bDevInit;
 
 	Parser::IParserInterface *m_pSerialParser;		//串口解析
 	Protocal::IProtocal *m_pSerialProtocal;			//串口协议解析
+
+	Parser::IParserInterface *m_pUsbParser;			//USB解析
+	Protocal::IProtocal *m_pUsbProtocal;			//USB协议解析
 
 	static IDevServer *m_pgInstance;
 };

@@ -17,7 +17,6 @@ public:
 	virtual ~IFormat(void) = 0 {};
 
 public:
-
 	virtual int ParseFormat(IN const char *pData, OUT int &Type, OUT char *&pFormatData) = 0;
 	virtual int CreateFormat(IN const char *pData, IN int nLen, \
 		IN int nType, OUT char **pFormatData,\

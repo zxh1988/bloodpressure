@@ -16,7 +16,7 @@ public:
 	virtual ~IParserInterface(void) = 0{};
 
 public:
-	virtual int Parse(IN const char *pData, IN int nType, OUT char *&pParsedData) = 0;
+	virtual int Parse(IN const char *pData, IN int &nType, OUT char *&pParsedData) = 0;
 
 
 

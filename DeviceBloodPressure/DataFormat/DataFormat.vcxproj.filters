@@ -57,9 +57,6 @@
     <ClInclude Include="inc\fromattemplete.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="inc\jsonwrap.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -78,9 +75,6 @@
       <Filter>formatfactory\json</Filter>
     </ClCompile>
     <ClCompile Include="src\json\cJSON.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jsonwrap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
